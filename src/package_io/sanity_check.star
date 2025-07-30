@@ -329,6 +329,29 @@ SUBCATEGORY_PARAMS = {
     "ethereum_genesis_generator_params": [
         "image",
     ],
+    "port_publisher": [
+        "nat_exit_ip",
+        "el",
+        "cl",
+        "vc",
+        "remote_signer",
+        "additional_services",
+        "mev",
+        "other",
+    ],
+    "txpool_viz_params": [
+        "image",
+        "min_cpu",
+        "max_cpu",
+        "min_mem",
+        "max_mem",
+        "extra_args",
+        "polling",
+        "filters",
+        "focil_enabled",
+        "log_level",
+        "env",
+    ],
 }
 
 ADDITIONAL_SERVICES_PARAMS = [
@@ -351,6 +374,7 @@ ADDITIONAL_SERVICES_PARAMS = [
     "nginx",
     "tracoor",
     "spamoor",
+    "txpool_viz",
 ]
 
 ADDITIONAL_CATEGORY_PARAMS = {
@@ -430,7 +454,7 @@ def sanity_check(plan, input_args):
     deep_validate_params(
         plan, input_args, "participants", PARTICIPANT_CATEGORIES["participants"]
     )
-    # Checks participants_matrix (uses original logic for arrays of objects)
+    # Checks participants_matrix
     if "participants_matrix" in input_args:
         for sub_matrix_participant in input_args["participants_matrix"]:
             if (
@@ -452,15 +476,6 @@ def sanity_check(plan, input_args):
                         sub_matrix_participant
                     ],
                 )
-
-    # Checks port_publisher (uses new generic validation for key-value mappings)
-    validate_nested_params(
-        plan,
-        input_args,
-        "port_publisher",
-        PORT_PUBLISHER_PARAMS["port_publisher"],
-        ["nat_exit_ip"],
-    )
 
     # Checks additional services
     if "additional_services" in input_args:
@@ -497,3 +512,4 @@ def sanity_check(plan, input_args):
 
     # If everything passes, print a message
     plan.print("Sanity check passed")
+
