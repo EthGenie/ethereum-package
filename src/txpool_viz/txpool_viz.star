@@ -101,6 +101,7 @@ def get_service_config(
 ):
     return ServiceConfig(
         image=txpool_viz_params.image,
+        skip_pull_image=True,
         ports={
             shared_utils.HTTP_APPLICATION_PROTOCOL: PortSpec(
                 number=HTTP_PORT_NUMBER,
