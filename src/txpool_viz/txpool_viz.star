@@ -99,10 +99,8 @@ def launch_txpool_viz(
 def get_service_config(
     environment_variables, txpool_viz_params, node_selectors, files_artifact
 ):
-    skip_pull = txpool_viz_params.extra_args.get("skip_pull", False)
     return ServiceConfig(
         image=txpool_viz_params.image,
-        skip_pull_image=skip_pull,
         ports={
             shared_utils.HTTP_APPLICATION_PROTOCOL: PortSpec(
                 number=HTTP_PORT_NUMBER,
